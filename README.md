@@ -1,2 +1,14 @@
-# KX2-PTTControl
-Control PTT of Elecraft KX2 from the kPC keyboard
+# KX2 Transceiver PTT control via PC keybaord
+
+This python script waits for pressing a certain key and then sends commands to the 
+Elecraft KX2 transceiver.
+
+Currently you can control the PTT key by pressing the right "Strg"/"Ctrl" key on the
+keyboard and you can play the content of the voice memory 2 by pressing the 
+"AltGr" key. I am using this memory e.g. to send my call sign.
+
+The script will be called by:
+
+`python <PathToFile>\KX2-PTTControl.py`
+
+It is running in the background until you stop it by pressing "Strg-C".

@@ -15,6 +15,7 @@
 # Import the necessary Python modules
 import keyboard
 import serial
+import os
 
 # Define keyboard control keys
 PTT_Event = "strg-rechts"   # Key for PTT on/off switch
@@ -29,25 +30,38 @@ serialPort = serial.Serial(
 serialPort.write(b'RX;')  
 pttStatus = "OFF"
 
-# Do this forever (until the program is terminated via Strg-C
-while True:
+# Clearing the Screen and print status message
+os.system('cls')
+print("Elecraft KX2-PTTControl running in background")
+print ("Press Strg/Ctrl-C to stop.")
+print (" ")
+print ("Right Strg/Ctrl key:    Toggle PTT")
+print ("AltGr key:              Play Voice Memory 2")
 
-    # Wait for the next keyboard event
-    event = keyboard.read_event()
+try:
 
-    # print(event.name)  # Uncomment this to see how whet the exact name of the keyboard even is
-    
-    if event.event_type == keyboard.KEY_DOWN and event.name == PTT_Event:
-        # The key for the PTT on/off has been pressed
-        if pttStatus == "OFF":
-            # Current PTT status is off, so switch PTT on
-            serialPort.write(b'TX;')
-            pttStatus = "ON"
-        else:
-            # Current PTT status is on, so switch PTT off
-            serialPort.write(b'RX;')
-            pttStatus = "OFF"
-    elif event.event_type == keyboard.KEY_DOWN and event.name == MEM2_Event:
-        # The key for playing the voice memory 2 has been pressed, so play voice memory
-        serialPort.write(b'SWT11;SWT27;')
+    # Do this forever (until the program is terminated via Strg-C
+    while True:
+
+        # Wait for the next keyboard event
+        event = keyboard.read_event()
+
+        # print(event.name)  # Uncomment this to see how whet the exact name of the keyboard even is
         
+        if event.event_type == keyboard.KEY_DOWN and event.name == PTT_Event:
+            # The key for the PTT on/off has been pressed
+            if pttStatus == "OFF":
+                # Current PTT status is off, so switch PTT on
+                serialPort.write(b'TX;')
+                pttStatus = "ON"
+            else:
+                # Current PTT status is on, so switch PTT off
+                serialPort.write(b'RX;')
+                pttStatus = "OFF"
+        elif event.event_type == keyboard.KEY_DOWN and event.name == MEM2_Event:
+            # The key for playing the voice memory 2 has been pressed, so play voice memory
+            serialPort.write(b'SWT11;SWT27;')
+
+except:
+    print (" ")
+    print("KX2-PTTControl ended.")

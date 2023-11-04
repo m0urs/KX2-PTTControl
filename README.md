@@ -12,3 +12,7 @@ The script will be called by:
 `python <PathToFile>\KX2-PTTControl.py`
 
 It is running in the background until you stop it by pressing "Strg-C".
+
+You can also create a one file executable by uusing "pyinstaller" (https://pyinstaller.org/en/stable/) like that:
+
+`pyinstaller --onefile ..\KX2-PTTControl.py`
